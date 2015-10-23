@@ -10,7 +10,7 @@ app.get('/', function(request, response) {
 });
 
 function emotions(file) {
-    return {happy: "100"};
+    return file;
 }
 
 app.post('/faceapi/getEmotion', upload.single('photo'), function(req, res, next) {
