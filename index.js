@@ -18,6 +18,14 @@ app.post('/faceapi/getEmotion', upload.single('photo'), function(req, res, next)
     res.json(emotions(f));
 });
 
+app.post('/faceapi/getBatchEmotions', upload.array('photos'), function(req, res, next) {
+    var ret = {};
+    for(var f in res.files) {
+        ret[f[originalname]] = emotions(f);
+    }
+    res.json(ret);
+});
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
