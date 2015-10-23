@@ -9,9 +9,13 @@ app.get('/', function(request, response) {
     response.json({message: "hello"});
 });
 
+function emotions(file) {
+    return {happy: "100"};
+}
+
 app.post('/faceapi/getEmotion', upload.single('photo'), function(req, res, next) {
     var f = req.file;
-    res.json(process(f));
+    res.json(emotions(f));
 });
 
 app.listen(app.get('port'), function() {
