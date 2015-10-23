@@ -20,9 +20,9 @@ app.post('/faceapi/getEmotion', upload.single('photo'), function(req, res, next)
 
 app.post('/faceapi/getBatchEmotions', upload.array('photos'), function(req, res, next) {
     var ret = {};
-    for(var f in res.files) {
-        console.log(f);
-        ret[f[originalname]] = emotions(f);
+    for(var i in req.files) {
+        f = req.files[i];
+        ret[f.originalname] = emotions(f);
     }
     res.json(ret);
 });
