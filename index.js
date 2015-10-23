@@ -9,22 +9,25 @@ app.get('/', function(request, response) {
     response.json({message: "hello"});
 });
 
-function emotions(file) {
+function emotions(file, uid) {
     return file;
 }
 
-app.post('/faceapi/getEmotion', upload.single('photo'), function(req, res, next) {
+function seed(file, uid) {
+
+}
+
+app.post('/faceapi/seed', upload.single('photo'), function(req, res, next) {
     var f = req.file;
-    res.json(emotions(f));
+    var uid = req.userid;
+    seed(f, uid);
+    res.json(emotions(f, uid));
 });
 
-app.post('/faceapi/getBatchEmotions', upload.array('photos'), function(req, res, next) {
-    var ret = {};
-    for(var i in req.files) {
-        f = req.files[i];
-        ret[f.originalname] = emotions(f);
-    }
-    res.json(ret);
+app.post('/faceapi/emotions', upload.single('photo'), function(req, res, next) {
+    var f = req.file;
+    var uid = req.userid;
+    res.json(emotions(f, uid));
 });
 
 app.listen(app.get('port'), function() {
